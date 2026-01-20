@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int main(void)
+{
+    int n;
+    int arr[1000];           // максимум 1000 элементов
+
+    printf("Введите размер массива (не больше 1000): ");
+    scanf("%d", &n);
+
+    if (n <= 0 || n > 1000) {
+        printf("Недопустимый размер\n");
+        return 1;
+    }
+
+    printf("Введите %d чисел:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int min_val = arr[0];
+    int max_val = arr[0];
+
+    for (int i = 1; i < n; i++) {
+        if (arr[i] < min_val) min_val = arr[i];
+        if (arr[i] > max_val) max_val = arr[i];
+    }
+
+    FILE *f = fopen("result.txt", "w");
+    if (f) {
+        fprintf(f, "%d\n", min_val + max_val);
+        fclose(f);
+        printf("Сумма min+max = %d записана в result.txt\n", min_val + max_val);
+    } else {
+        printf("Не удалось создать файл\n");
+    }
+
+    return 0;
+}
